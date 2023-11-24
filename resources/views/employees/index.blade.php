@@ -47,7 +47,8 @@
                                 <a type="button" class="btn btn-primary me-2"
                                     href="{{ route('employee.edit', $employee->id) }}">Edit</a>
 
-                                <form action="#" method="post" class="delete-form">
+                                <form action="{{ route('employee.destroy', $employee->id) }}" method="post"
+                                    class="delete-form">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger" type="submit"> Delete</button>
