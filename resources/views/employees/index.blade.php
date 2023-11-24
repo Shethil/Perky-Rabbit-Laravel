@@ -44,7 +44,8 @@
                                 @endforeach
                             </td>
                             <td class="d-flex">
-                                <a type="button" class="btn btn-primary me-2" href="#">Edit</a>
+                                <a type="button" class="btn btn-primary me-2"
+                                    href="{{ route('employee.edit', $employee->id) }}">Edit</a>
 
                                 <form action="#" method="post" class="delete-form">
                                     @csrf

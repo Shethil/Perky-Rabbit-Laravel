@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeStoreRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
 use App\Models\Achievement;
 use App\Models\Department;
 use App\Models\Employee;
-use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -45,8 +45,10 @@ class EmployeeController extends Controller
             'department_id' => $request->department_id,
         ]);
 
-        foreach ($request->input('achievement_ids') as $achievementId) {
-            $employee->achievements()->attach($achievementId, ['achievement_date' => now()]);
+        if ($request->achievement_ids) {
+            foreach ($request->input('achievement_ids') as $achievementId) {
+                $employee->achievements()->attach($achievementId, ['achievement_date' => now()]);
+            }
         }
 
         return redirect()->route('employee.index');
@@ -65,15 +67,34 @@ class EmployeeController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $employee = Employee::with(['department', 'achievements'])->find($id);
+        $departments = Department::all(); // Assuming you have a Department model
+        $achievements = Achievement::all(); // Assuming you have an Achievement model
+
+        return view('employees.edit', compact('employee', 'departments', 'achievements'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(EmployeeUpdateRequest $request, string $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $employee->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'address' => $request->address,
+            'department_id' => $request->department_id,
+        ]);
+
+        if ($request->achievement_ids) {
+            foreach ($request->input('achievement_ids') as $achievementId) {
+                $employee->achievements()->attach($achievementId, ['achievement_date' => now()]);
+            }
+        }
+
+        return redirect()->route('employee.index');
     }
 
     /**
