@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Achievement;
 use Illuminate\Database\Seeder;
 
 class AchievementSeeder extends Seeder
@@ -12,6 +12,7 @@ class AchievementSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Achievement::create(['name' => 'Employee of the Month']);
+        Achievement::create(['name' => 'Team Player']);
     }
 }

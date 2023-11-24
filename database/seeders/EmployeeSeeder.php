@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Employee;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -12,6 +12,12 @@ class EmployeeSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Employee::create([
+            'name' => 'Shethil Ahammed',
+            'email' => 'shithelahammed@gmail.com',
+            'phone' => '01955199791',
+            'address' => 'DIT PROJECT, MERUL BADDA, DHAKA 1212',
+            'department_id' => 1,
+        ]);
     }
 }
